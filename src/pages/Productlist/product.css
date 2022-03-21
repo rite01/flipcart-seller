@@ -1,0 +1,29 @@
+.tag{
+    margin-left: 300px;
+    text-align: center;
+    justify-content: center;
+    padding: 30px;
+}
+.product {
+    margin-left: 300px;
+    flex-wrap: wrap;
+    display: flex;
+}
+.img{
+    height: 320px;
+    width: 100%;
+    border-bottom: 1px solid black;
+}
+.card{
+    width: 18rem;
+    margin-left: 30px;
+    margin-bottom: 30px;
+}
+.btn{
+    margin-left: 20px;
+}
+.title{
+    font-size: 14px;
+    
+}
+

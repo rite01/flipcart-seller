@@ -1,0 +1,17 @@
+.dash {
+    margin-left: 300px;
+    padding: 30px;
+}
+.chartbox{
+    margin-left: 20px;
+    display: flex;
+}
+.chart{
+    height: 600px;
+    width: 700px;
+}
+.title{
+    text-align: center;   
+    justify-content: center;
+    font-size: 120px;
+}
