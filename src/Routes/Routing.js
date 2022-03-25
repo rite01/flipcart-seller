@@ -6,6 +6,8 @@ import Login from "../pages/Login";
 import Updateproduct from "../pages/Updateproduct/Updateproduct";
 
 
+
+
 const Routing = () => {
 //   const user = localStorage.getItem("token");
 
