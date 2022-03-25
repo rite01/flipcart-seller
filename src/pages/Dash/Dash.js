@@ -3,8 +3,7 @@ import Main from "../../components/Main";
 import Sidenav from "../../components/Sidenav/Sidenav";
 import "./dash.css";
 import { Line } from "react-chartjs-2";
-import { CDBContainer } from "cdbreact";
-import { Card } from "react-bootstrap";
+
 
 export const Dash = () => {
   const [data] = useState({
@@ -37,7 +36,6 @@ export const Dash = () => {
             <h3 className="mt-5">Line chart Sells</h3>
             <Line data={data} options={{ responsive: true }} />
           </div>
-
           <div className="chart">
             <h3 className="mt-5">Line chart Sells</h3>
             <Line data={data} options={{ responsive: true }} />

@@ -1,9 +1,10 @@
 import axios from "axios";
 import React, { useState, useEffect } from "react";
-import { Card,Button } from "react-bootstrap";
+import { Card, Button } from "react-bootstrap";
 import Main from "../../components/Main";
 import Sidenav from "../../components/Sidenav/Sidenav";
 import "./product.css";
+// import { getApi } from "../../servive/index";
 
 export function Product() {
   const [data, setData] = useState([]);
@@ -11,7 +12,7 @@ export function Product() {
   useEffect(() => {
     getData();
   }, []);
-
+  
   const getData = async () => {
     const response = await axios
       .get("http://localhost:5000/api/v1/products/product")
@@ -21,6 +22,7 @@ export function Product() {
     setData(response.data.data);
   };
   console.log(data);
+
 
   return (
     <div>
@@ -42,10 +44,10 @@ export function Product() {
               <hr />
               <Card.Text>{item.description}</Card.Text>
               <div className="btn2">
-              <Button variant="primary">Delete</Button>
-              <Button variant="primary" className="btn">
-                Update
-              </Button>
+                <Button variant="primary">Delete</Button>
+                <Button variant="primary" className="btn">
+                  Update
+                </Button>
               </div>
             </Card.Body>
           </Card>
