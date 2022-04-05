@@ -1,18 +1,13 @@
-.addproduct {
-    margin-left: 700px;
-    width: 600px;
-    padding: 50px;
-
+.addproductform {
+margin-left: 50%;
 }
 
-.form-Control {
-    border: none;
-    border-bottom: 1px solid black;
-    width: 400px;
-    line-height: 40px;
+.test123{
+    width: 1120px;
+    margin-left: 25%;
 }
-
-.text {
-    margin-bottom: 20px;
-    margin-left: 100px;
+.btn2{
+    width: 1100px;
+    margin-left: 14px;
+    margin-top: 20px;
 }

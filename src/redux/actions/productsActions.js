@@ -7,3 +7,17 @@ export const setProducts = (products) => {
   };
 };
 
+export const addProducts = (products) => {
+  return {
+    type: ActionTypes.ADD_PRODUCTS,
+    payload: products,
+  };
+};
+
+
+export const selectedProduct = (id) => {
+  return {
+    type: ActionTypes.SELECTED_PRODUCT,
+    payload: id,
+  };
+};  

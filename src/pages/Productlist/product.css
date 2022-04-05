@@ -6,24 +6,31 @@
 }
 .product {
     margin-left: 300px;
-    flex-wrap: wrap;
-    display: flex;
+    padding: 20px;             
 }
-.img{
-    height: 320px;
-    width: 100%;
-    border-bottom: 1px solid black;
+.imgtab{
+    height: 150px;
+    width: 150px;
 }
-.card{
-    width: 18rem;
-    margin-left: 30px;
-    margin-bottom: 30px;
-}
-.btn{
-    margin-left: 20px;
-}
-.title{
-    font-size: 14px;
     
+.details2{
+    margin-top: 10px;
 }
 
+.search-box{
+    width: 85%;
+    margin-left: 15%;
+    padding: 25px;
+    height: 100px;
+}
+.dropdown{
+    margin-left:15%;
+    display: flex;
+}
+.dropdown2{
+    margin-left: 1%;
+    display: flex;
+}
+.drop{
+    display: flex;
+}

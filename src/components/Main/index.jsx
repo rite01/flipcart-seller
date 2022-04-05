@@ -1,19 +1,21 @@
 import { useNavigate } from "react-router";
-import './stylesmodule.css'
+import { toast } from "react-toastify";
+import "./stylesmodule.css";
 const Main = () => {
-  let navigate = useNavigate("")
+  let navigate = useNavigate("");
   const handleLogout = () => {
     localStorage.removeItem("token");
-    navigate("/")
+    navigate("/");
+    toast.success("Logout Success")
   };
 
   return (
-    <div className='header'>
+    <div className="header">
       <nav className="header">
         <h1>FlipKart Seller</h1>
-          <button className="white_btn" onClick={handleLogout}>
-            Logout
-          </button>
+        <button className="white_btn" onClick={handleLogout}>
+          Logout
+        </button>
       </nav>
     </div>
   );

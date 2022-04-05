@@ -1,11 +1,9 @@
 import React from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import { Dash, Product, Addproduct } from "../pages/index";
+import { Dash, Product, Addproduct, Details } from "../pages/index";
 import Signup from "../pages/Singup";
 import Login from "../pages/Login";
-import Updateproduct from "../pages/Updateproduct/Updateproduct";
-
-
+import { Updateproduct } from "../pages/update";
 
 
 const Routing = () => {
@@ -17,15 +15,17 @@ const Routing = () => {
     { path: "/dash", Component: Dash },
     { path: "/product", Component: Product },
     { path: "/add", Component: Addproduct },
-    { path: "/update", Component: Updateproduct },
-  
+    { path: "/detail", Component: Details },
+
+    { path: "/update/:id", Component: Updateproduct },
   ];
+
 
   return (
     <BrowserRouter>
       <Routes>
-        {routing.map((item) => {
-          return <Route path={item.path} element={<item.Component />} />;
+        {routing.map((item,index) => {
+          return <Route key={index} path={item.path} element={<item.Component />} />;
         })}
       </Routes>
     </BrowserRouter>

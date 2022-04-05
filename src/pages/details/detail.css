@@ -1,0 +1,15 @@
+.detail{
+    margin-left: 350px;
+    padding: 30px;
+    display: flex;
+
+}
+.imgstyle{
+    height: 400px;
+    width: 450px;
+}
+
+.title1{
+    padding: 30px;
+    margin-left: 100px;
+}

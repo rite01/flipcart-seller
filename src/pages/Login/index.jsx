@@ -1,94 +1,88 @@
-import { useState } from "react";
+import styles from "./styles.module.css"; 
+
 import axios from "axios";
 import { Link } from "react-router-dom";
-import styles from "./styles.module.css";
-import * as yup from "yup";
-import { useFormik } from "formik";
+import { useNavigate } from "react-router";
+
+import * as Yup from "yup";
+import { Formik, Form, ErrorMessage, Field } from "formik";
+
+import { toast } from "react-toastify";
 
 const Login = () => {
-  const [data, setData] = useState({ email: "", password: "" });
-  const [error, setError] = useState("");
-
-  const handleChange = ({ currentTarget: input }) => {
-    setData({ ...data, [input.name]: input.value });
+  const navigate = useNavigate();
+  const loginvalue = {
+    email: "",
+    password: "",
   };
 
-  const validationSchema = yup.object({
-    email: yup
-      .string("Enter your email")
-      .email("Enter a valid email")
-      .required("Email is required"),
-    password: yup
-      .string("Enter your password")
-      .min(8, "Password should be of minimum 8 characters length")
-      .required("Password is required"),
+
+  const EmailRegex = /^[a-zA-Z0-9]+@+[a-zA-Z0-9]+.+[A-z]/;
+  const passwordRegex = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$/;
+
+  const loginSchema = Yup.object({
+    email: Yup.string()
+      .email("Invalid email")
+      .required("Required")
+      .matches(EmailRegex, "email not validate"),
+    password: Yup.string()
+      .min(6, "Password Must br 8 Char")
+      .max(15, "Too Long!")
+      .required("Required")
+      .matches(passwordRegex, "Password not validate"),
   });
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    try {
-      const url = "https://afraid-ape-61.loca.lt/auth/seller/login";
-      const { data: res } = await axios.post(url, data);
-      localStorage.setItem("token", res.data);
-      window.location = "/dash";
-    } catch (error) {
-      if (
-        error.response &&
-        error.response.status >= 400 &&
-        error.response.status <= 500
-      ) {
-        setError(error.response.data.message);
-      }
-    }
+  const handleSubmit = async (loginvalue) => {
+    await axios
+      .post("https://chilly-monkey-27.loca.lt/api/SellerLogin", loginvalue)
+      .then((response) => {
+        navigate("/product");
+        toast.success("Login SuccessFully")
+        toast.error(response.message)
+        localStorage.setItem("Token", response.data.accToken);
+      })
+      .catch((error) => {
+        toast.error("Plese Check Email or Password",error);
+      });
   };
-  console.log(">>>>>>>>>>",data)
-
-  const formik = useFormik({
-    initialValues: {
-      email: "foobar@example.com",
-      password: "foobar",
-    },
-    validationSchema: validationSchema,
-    onSubmit: (values) => {
-      alert(JSON.stringify(values, null, 2));
-    },
-  });
 
   return (
     <div>
       <div className={styles.login_container}>
         <div className={styles.login_form_container}>
-          <div className={styles.left}>
-            <form className={styles.form_container} onSubmit={handleSubmit}>
-              <h1>Login to Your Account</h1>
+          <Formik
+            initialValues={loginvalue}
+            onSubmit={handleSubmit}
+            validationSchema={loginSchema}
+          >
+            <div className={styles.left}>
+              <Form className={styles.form_container}>
+                <h1>Login to Your Account</h1>
 
-              <input
-                id="email"
-                type="email"
-                placeholder="Email"
-                name="email"
-                onChange={handleChange}
-                value={data.email}
-                className={styles.input}
-                error={formik.touched.email && Boolean(formik.errors.email)}
-                helperText={formik.touched.email && formik.errors.email}
-              />
+                <Field
+                  placeholder="Email"
+                  name="email"
+                  className={styles.input}
+                />
+                <p className="text-danger">
+                  <ErrorMessage name="email" />
+                </p>
 
-              <input
-                type="password"
-                placeholder="Password"
-                name="password"
-                onChange={handleChange}
-                value={data.password}
-                required
-                className={styles.input}
-              />
-              {error && <div className={styles.error_msg}>{error}</div>}
-              <button type="submit" className={styles.green_btn}>
-                Sing In
-              </button>
-            </form>
-          </div>
+                <Field
+                  type="password"
+                  placeholder="Password"
+                  name="password"
+                  className={styles.input}
+                />
+                <p className="text-danger">
+                  <ErrorMessage name="password" />
+                </p>
+                <button type="submit" className={styles.green_btn}>
+                  Sing In
+                </button>
+              </Form>
+            </div>
+          </Formik>
           <div className={styles.right}>
             <h1>New Here ?</h1>
             <Link to="/signup">

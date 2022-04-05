@@ -2,52 +2,54 @@ import { useState } from "react";
 import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
 import styles from "./styles.module.css";
-import { Formik, Form, ErrorMessage } from "formik";
+import { Formik, Form, ErrorMessage, Field } from "formik";
 import * as Yup from "yup";
-// import { validationSignup } from "./signupvalidation";
+
 
 const Signup = () => {
-  const [data, setData] = useState({
+  const formData = {
     fullName: "",
-    phone: "",
+    number: "",
     email: "",
     password: "",
-  });
-  const [error, setError] = useState("");
-
-  const navigate = useNavigate();
-
-  const handleChange = ({ currentTarget: input }) => {
-    setData({ ...data, [input.name]: input.value });
   };
+  const [setError] = useState();
 
-  const phoneRegExp =
+  const numberRegExp =
     /^((\\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2,4})[ \\-]*)*?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?$/;
   const EmailRegex = /^[a-zA-Z0-9]+@+[a-zA-Z0-9]+.+[A-z]/;
+  const passwordRegex = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$/;
 
-  const SignupSchema = Yup.object().shape({
+  const SignupSchema = Yup.object().shape({ 
     fullName: Yup.string()
       .min(3, "Too Short!")
-      .max(50, "Too Long!")
+      .max(15, "Too Long!")
       .required("Required"),
-    phone: Yup.string()
-      .required("required")
-      .matches(phoneRegExp, "Phone number is not valid")
+    number: Yup.string()
+      .required("Required")
+      .matches(numberRegExp , "Phone number is not valid")
       .min(10, "to short")
       .max(10, "to long"),
     email: Yup.string()
-      .email("Invalid email")
-      .required("required")
-      .matches(EmailRegex, "Phone number is not valid"),
+      .email("Invalid email")   
+      .required("Required")
+      .matches(EmailRegex, "email not validate"),
+    password: Yup.string()
+      .min(6, "Password Must br 8 Char")
+      .max(15, "Too Long!")
+      .required("Required")
+      .matches(passwordRegex, "Password not validate"),
   });
 
-  const onSubmit = async (e) => {
-    e.preventDefault();
+  let navigate = useNavigate()
+                                  
+
+  const handlesubmit = async (formData) => {
     try {
-      const url = "https://afraid-ape-61.loca.lt/auth/seller/register";
-      const { data: res } = await axios.post(url, data);
+      const url = "https://red-tiger-45.loca.lt/api/Sellersignup ";
+      const { formData: res } = await axios.post(url, formData);
       navigate("/");
-      console.log(res.message);
+      console.log(res);
     } catch (error) {
       if (
         error.response &&
@@ -59,7 +61,7 @@ const Signup = () => {
     }
   };
 
-  console.log(">>>>>>>>..", data);
+  console.log(">>>>>>>>..", formData);
 
   return (
     <div>
@@ -75,52 +77,58 @@ const Signup = () => {
           </div>
 
           <Formik
-            initialValues={data}
+            initialValues={formData}
             validationSchema={SignupSchema}
-            onSubmit={onSubmit}
+            onSubmit={handlesubmit}
           >
             <div className={styles.right}>
-              <Form className={styles.form_container}>
+              <Form className={styles.form_container} autoComplete="off"> 
                 <h1>Create Account</h1>
-                <input
+                <Field
                   type="text"
                   placeholder="First Name"
                   name="fullName"
-                  onChange={handleChange}
-                  value={data.firstName}
                   className={styles.input}
                 />
-                <ErrorMessage name="fullName">{(msg) => <div style={{ color: "red" }}>{msg}</div>}</ErrorMessage>
-                <input
+                <p className="text-danger">
+                  <ErrorMessage name="fullName" />
+                </p>
+
+                <Field
                   type="tel"
                   placeholder="Mobile Number"
-                  name="phone"
-                  onChange={handleChange}
-                  value={data.mobile}
+                  name="number"
                   className={styles.input}
                 />
-                <ErrorMessage name="phone">{(msg) => <div style={{ color: "red" }}>{msg}</div>}</ErrorMessage>
-                <input
+                <p className="text-danger">
+                  <ErrorMessage name="number" />
+                </p>
+
+                <Field
                   type="email"
                   placeholder="Email"
                   name="email"
-                  onChange={handleChange}
-                  value={data.email}
-          
                   className={styles.input}
                 />
-                <ErrorMessage name="email">{(msg) => <div style={{ color: "red" }}>{msg}</div>}</ErrorMessage>
-                <input
+                <p className="text-danger">
+                  <ErrorMessage name="email" />
+                </p>
+
+                <Field
                   type="password"
                   placeholder="Password"
                   name="password"
-                  onChange={handleChange}
-                  value={data.password}
                   className={styles.input}
                 />
-                <ErrorMessage name="password">{(msg) => <div style={{ color: "red" }}>{msg}</div>}</ErrorMessage>
-                {error && <div className={styles.error_msg}>{error}</div>}
-                <button type="submit" className={styles.green_btn}>
+                <p className="text-danger">
+                  <ErrorMessage name="password" />
+                </p>
+
+                <button
+                  type="submit"
+                  className={styles.green_btn}
+                  type="submit"
+                >
                   Sing Up
                 </button>
               </Form>
