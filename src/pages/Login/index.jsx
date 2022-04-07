@@ -8,6 +8,8 @@ import * as Yup from "yup";
 import { Formik, Form, ErrorMessage, Field } from "formik";
 
 import { toast } from "react-toastify";
+import Loader from "react-js-loader";
+import { useState } from "react";
 
 const Login = () => {
   const navigate = useNavigate();
@@ -15,6 +17,10 @@ const Login = () => {
     email: "",
     password: "",
   };
+  const [error, setError] = useState("");
+  const [load, setLoad] = useState({
+    label:"login"
+  })
 
 
   const EmailRegex = /^[a-zA-Z0-9]+@+[a-zA-Z0-9]+.+[A-z]/;
@@ -34,7 +40,7 @@ const Login = () => {
 
   const handleSubmit = async (loginvalue) => {
     await axios
-      .post("https://chilly-monkey-27.loca.lt/api/SellerLogin", loginvalue)
+      .post("https://purple-mole-82.loca.lt/auth/seller/login", loginvalue)
       .then((response) => {
         navigate("/product");
         toast.success("Login SuccessFully")
@@ -46,6 +52,8 @@ const Login = () => {
       });
   };
 
+
+
   return (
     <div>
       <div className={styles.login_container}>
@@ -54,6 +62,7 @@ const Login = () => {
             initialValues={loginvalue}
             onSubmit={handleSubmit}
             validationSchema={loginSchema}
+            disabled={!(Formik.dirty && Formik.isValid)}
           >
             <div className={styles.left}>
               <Form className={styles.form_container}>
@@ -77,9 +86,14 @@ const Login = () => {
                 <p className="text-danger">
                   <ErrorMessage name="password" />
                 </p>
+                {error && <div className={styles.error_msg}>{error}</div>}
+
+
                 <button type="submit" className={styles.green_btn}>
-                  Sing In
+                    Sing In
                 </button>
+                
+                
               </Form>
             </div>
           </Formik>

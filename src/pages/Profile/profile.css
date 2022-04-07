@@ -1,0 +1,15 @@
+.profile2{
+    margin-left: 50%;
+}
+.profile1{
+    margin-left: 340px;
+}
+.image0{
+    width: 400px;
+}
+.container-profile{
+    display: flex;
+    flex-wrap: wrap;
+    margin-left: 60px;
+    margin-top: 50px;
+}

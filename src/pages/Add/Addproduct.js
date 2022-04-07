@@ -6,25 +6,30 @@ import Main from "../../components/Main";
 import Sidenav from "../../components/Sidenav/Sidenav";
 import "./add.css";
 import { useNavigate } from "react-router";
-import { GET_DATA_API, TOKEN } from "../../apiServices/services";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 export function Addproduct() {
   let navigate = useNavigate();
   const [input, setinput] = useState({
+    // title: "",
+    // description: "",
+    // avater: "",
+    // price: "",
+    // stockQuantity: "",
+    // rating: "",
+    // category: "",
+    // owner: "",
+    // productBrand: "",
+    // productType: "",
+
     title: "",
     description: "",
-    photo: "",
+    avatar: "",
     price: "",
-    stockQuantity: "",
-    rating: "",
-    category: "",
-    owner: "",
-    productBrand: "",
-    productType: "",
+    categoryId: "",
+    brandId: "",
   });
-
 
   const [items, setitems] = useState([]);
 
@@ -34,88 +39,76 @@ export function Addproduct() {
     setinput({ ...input, [name]: value });
   };
 
-  const handleImage = (e) =>{
-    console.log("0000000", e)
-    const img = e.target.files[0];
-    console.log("ssssssssss", img)
-    setinput({...input, photo:img})
-  }
 
   const Additem = async (e) => {
     e.preventDefault();
-    console.log("----", input.photo)
+
+    console.log("----", input.avatar);
+
     if (!input) {
     } else {
+      if (!input.title) {
+        return toast.error("Please enter title");
+      } else if (!input.description) {
+        return toast.error("Please enter description");
+      } else if (!input.avatar) {
+        return toast.error("Please select photo");
+      } else if (!input.price) {
+        return toast.error("Pleas enter price");
+      } else if (!input.categoryId) {
+        return toast.error("Pleas enter category");
+      } else if (!input.brandId) {
+        return toast.error("Pleas enter product type");
+      } 
 
-      if(!input.title)
-      {
-        return toast.error("Please enter title")
-      }
-      else if (!input.description){
-        return toast.error("Please enter description")
-      }
-      else if (!input.photo){
-        return toast.error("Please select photo")
-      }
-      else if (!input.price){
-        return toast.error("Pleas enter price")
-      }
-      else if (!input.category){
-        return toast.error("Pleas enter category")
-      }
-      else if (!input.productType){
-        return toast.error("Pleas enter product type")
-      }
-      else if (!input.productBrand){
-        return toast.error("Pleas enter product brand")
-      }
-      else if (!input.owner){
-        return toast.error("Pleas enter owner")
-      }
-      else if (!input.stockQuantity){
-        return toast.error("Pleas enter quantity")
-      }
       setitems([...items, input]);
       try {
-        const token = TOKEN;
+      
         const req = {
+          // title: input.title,
+          // description: input.description,
+          // photo: URL.createObjectURL(input.photo),
+          // avater: input.avater,
+          // price: input.price,
+          // stockQuantity: input.stockQuantity,
+          // rating: input.rating,
+          // category_Id: input.category,
+          // owner: input.owner,
+          // productBrand: input.productBrand,
+          // productType: input.productType,
+
           title: input.title,
           description: input.description,
-          photo: URL.createObjectURL(input.photo),
+          avatar: JSON.stringify(input.avatar),
           price: input.price,
-          stockQuantity: input.stockQuantity,
-          rating: input.rating,
-          category: input.category,
-          owner: input.owner,
-          productBrand: input.productBrand,
-          productType: input.productType,
-        }
-        let res = await axios.post(GET_DATA_API, req, {
-          headers: { Authorization: `Bearer ${token}` },
-        });
-
-        // console.log("++++++++++", res.data.message);
-        console.log("000", res)
-        toast.success(res.data.message)
+          categoryId: input.categoryId,
+          brandId: input.brandId,
+        };
+        let res = await axios.post(
+          "https://purple-mole-82.loca.lt/v1/product",
+          req,
+          {
+            headers: {
+              Authorization: `Bearer ${localStorage.getItem("Token")}`,
+            },
+          }
+        );
+        toast.success(res.data.message);
         navigate("/product");
       } catch (err) {
-      
-        toast.warn(err.message) 
+        toast.warn(err.message);
         console.warn("error", err);
       }
     }
   };
 
-
   return (
     <div>
       <Main />
       <Sidenav />
-      <h1 className="addproductform">Test</h1>
+      <h1 className="addproductform">Add Product</h1>
 
-      <form className="test123" onSubmit={Additem} >
-
-        
+      <form className="test123" onSubmit={Additem}>
         <Container>
           <Row>
             <Col>
@@ -145,9 +138,9 @@ export function Addproduct() {
               <Form.Label>Image</Form.Label>
               <Form.Control
                 type="file"
-                name="photo"
+                name="avatar"
                 placeholder="Image"
-                onChange={handleImage}
+                onChange={inputHandler}
                 multiple
               />
             </Col>
@@ -169,16 +162,16 @@ export function Addproduct() {
               <Form.Label>Product category</Form.Label>
               <Form.Control
                 type="text"
-                name="category"
+                name="categoryId"
                 placeholder="Product category"
                 onChange={inputHandler}
               />
             </Col>
             <Col>
-              <Form.Label>Product type</Form.Label>
+              <Form.Label>Product brand</Form.Label>
               <Form.Control
                 type="text"
-                name="productType"
+                name="brandId"
                 placeholder="Product type"
                 onChange={inputHandler}
               />
@@ -186,52 +179,8 @@ export function Addproduct() {
           </Row>
         </Container>
 
-        <Container>
-          <Row>
-            <Col>
-              <Form.Label>owner</Form.Label>
-              <Form.Control
-                type="text"
-                name="owner"
-                placeholder="owner id"
-                onChange={inputHandler}
-              />
-            </Col>
-            <Col>
-              <Form.Label>Product Brands</Form.Label>
-              <Form.Control
-                type="text"
-                name="productBrand"
-                placeholder="Product Brands"
-                onChange={inputHandler}
-              />
-            </Col>
-          </Row>
-        </Container>
 
-        <Container>
-          <Row>
-            <Col>
-              <Form.Label>Product rating</Form.Label>
-              <Form.Control
-                type="number"
-                name="rating"
-                placeholder="Product rating"
-                onChange={inputHandler}
-              />
-            </Col>
-            <Col>
-              <Form.Label>Stock Quantity</Form.Label>
-              <Form.Control
-                type="number"
-                name="stockQuantity"
-                placeholder="Stock Quantity"
-                onChange={inputHandler}
-              />
-            </Col>
-          </Row>
-        </Container>
-        <Button variant="primary" type="submit" className="btn2" >
+        <Button variant="primary" type="submit" className="btn2">
           Add
         </Button>
       </form>

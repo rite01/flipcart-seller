@@ -4,6 +4,7 @@ import { Dash, Product, Addproduct, Details } from "../pages/index";
 import Signup from "../pages/Singup";
 import Login from "../pages/Login";
 import { Updateproduct } from "../pages/update";
+import { Profile } from "../pages/Profile/Profile";
 
 
 const Routing = () => {
@@ -18,6 +19,7 @@ const Routing = () => {
     { path: "/detail", Component: Details },
 
     { path: "/update/:id", Component: Updateproduct },
+    { path: "/profile", Component: Profile },
   ];
 
 

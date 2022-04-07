@@ -8,8 +8,6 @@ const Sidenav = () => {
         <nav>
             <Link className='nav' to="/dash"> Dashboard </Link>
             <Link className='nav' to="/product">  Product List</Link>
-            <Link className='nav' to="/add"> Add Product</Link>
-        
         </nav>
     </div>
   )

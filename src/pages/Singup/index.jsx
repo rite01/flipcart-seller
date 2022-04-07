@@ -9,7 +9,7 @@ import * as Yup from "yup";
 const Signup = () => {
   const formData = {
     fullName: "",
-    number: "",
+    phone: "",
     email: "",
     password: "",
   };
@@ -25,7 +25,7 @@ const Signup = () => {
       .min(3, "Too Short!")
       .max(15, "Too Long!")
       .required("Required"),
-    number: Yup.string()
+    phone: Yup.string()
       .required("Required")
       .matches(numberRegExp , "Phone number is not valid")
       .min(10, "to short")
@@ -46,7 +46,7 @@ const Signup = () => {
 
   const handlesubmit = async (formData) => {
     try {
-      const url = "https://red-tiger-45.loca.lt/api/Sellersignup ";
+      const url = "https://purple-mole-82.loca.lt/auth/seller/register";
       const { formData: res } = await axios.post(url, formData);
       navigate("/");
       console.log(res);
@@ -97,7 +97,7 @@ const Signup = () => {
                 <Field
                   type="tel"
                   placeholder="Mobile Number"
-                  name="number"
+                  name="phone"
                   className={styles.input}
                 />
                 <p className="text-danger">

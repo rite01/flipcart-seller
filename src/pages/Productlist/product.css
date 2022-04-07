@@ -9,19 +9,20 @@
     padding: 20px;             
 }
 .imgtab{
-    height: 150px;
-    width: 150px;
+    height: 100px;
+    width: 130px;
 }
     
 .details2{
     margin-top: 10px;
 }
 
-.search-box{
-    width: 85%;
-    margin-left: 15%;
-    padding: 25px;
-    height: 100px;
+.searchbar{
+    width: 86%;
+    margin-bottom: 20px;
+    height: 50px;
+    padding-left: 18px;
+    
 }
 .dropdown{
     margin-left:15%;
@@ -33,4 +34,21 @@
 }
 .drop{
     display: flex;
+}
+
+.searchicon{
+    position: relative;
+    right: 60px;
+}
+
+.addproduct{
+    height: 50px;
+    width: 200px;
+    text-decoration: none;
+}
+
+.loading-product{
+    margin-left: 800px;
+    margin-top: 10px;
+    margin-bottom: 10px;
 }

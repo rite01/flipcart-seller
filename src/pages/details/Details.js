@@ -6,12 +6,14 @@ import { Link } from "react-router-dom";
 import Main from "../../components/Main";
 import Sidenav from "../../components/Sidenav/Sidenav";
 import "./detail.css";
-import { Loader } from 'rsuite';
+
 
 
 export const Details = () => {
   const allProducts = useSelector((state) => state.productsReducer.products);
+ 
   const productId = useSelector((state) => state.productId);
+
   const [productDetails, setProductDetails] = useState([]);
 
   useEffect(() => {
@@ -19,7 +21,7 @@ export const Details = () => {
   }, []);
 
 
-  const instance = <Loader />;
+  
 
   return (
     <Fragment>
