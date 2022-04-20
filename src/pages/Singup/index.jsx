@@ -46,7 +46,7 @@ const Signup = () => {
 
   const handlesubmit = async (formData) => {
     try {
-      const url = "https://purple-mole-82.loca.lt/auth/seller/register";
+      const url = "https://modern-fox-4.loca.lt/api/register";
       const { formData: res } = await axios.post(url, formData);
       navigate("/");
       console.log(res);
@@ -127,7 +127,6 @@ const Signup = () => {
                 <button
                   type="submit"
                   className={styles.green_btn}
-                  type="submit"
                 >
                   Sing Up
                 </button>

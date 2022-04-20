@@ -6,7 +6,7 @@ import Main from "../../components/Main";
 import Sidenav from "../../components/Sidenav/Sidenav";
 import "./update.css";
 import { useNavigate, useParams } from "react-router";
-import { DELETE_DATA_API, GET_DATA_API } from "../../apiServices/services";
+import { REACT_APP } from "../../service/config/env.config";
 
 export function Updateproduct() {
   let navigate = useNavigate();
@@ -35,7 +35,7 @@ export function Updateproduct() {
 
   const getdata = async (e) => {
     try {
-      const url = "http://localhost:5000/api/v1/products/product/" + id;
+      const url = `${REACT_APP}/api/v1/products/product/` + id;
       const res = await axios.get(url);
       console.log(res.data.data);
       setinput(res.data.data);
@@ -48,16 +48,16 @@ export function Updateproduct() {
     getdata();
   }, []);
 
-
-  const onformsubmit = async(e) => {
+  const onformsubmit = async (e) => {
     e.preventDefault();
-    try{
-        await axios.put("http://localhost:5000/api/v1/products/product/" + id, input);
-        navigate("/product")
-    }catch(error){
-        console.log("Wrong")
+    try {
+      const url = `${REACT_APP}/api/v1/products/product/` + id;
+      await axios.put(url, input);
+      navigate("/product");
+    } catch (error) {
+      console.log("Wrong");
     }
-  }
+  };
 
   return (
     <div>
@@ -190,7 +190,12 @@ export function Updateproduct() {
             </Col>
           </Row>
         </Container>
-        <Button variant="primary" type="submit" className="btn2" onClick={(e) => onformsubmit(e)}>
+        <Button
+          variant="primary"
+          type="submit"
+          className="btn2"
+          onClick={(e) => onformsubmit(e)}
+        >
           Update
         </Button>
       </form>

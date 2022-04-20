@@ -14,7 +14,6 @@ import "./product.css";
 
 import { Link } from "react-router-dom";
 
-import { DELETE_DATA_API } from "../../apiServices/services";
 import { toast } from "react-toastify";
 
 import { styled } from "@mui/material/styles";
@@ -32,6 +31,9 @@ import AddIcon from "@mui/icons-material/Add";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
 import WidgetsIcon from "@mui/icons-material/Widgets";
+import { REACT_APP } from "../../service/config/env.config";
+
+
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
@@ -42,7 +44,7 @@ const StyledTableCell = styled(TableCell)(({ theme }) => ({
     fontSize: 14,
   },
 }));
-
+console.log("123",REACT_APP)
 const StyledTableRow = styled(TableRow)(({ theme }) => ({
   "&:nth-of-type(odd)": {
     backgroundColor: theme.palette.action.hover,
@@ -68,24 +70,25 @@ export const Product = () => {
   // console.log(products.filter(products=> products.title.includes('te')))
 
   const fetchProducts = async () => {
+    // debugger;
     setTimeout(() => setloading(false), 1000)
-    const response = await axios
-      .get("https://purple-mole-82.loca.lt/v1/product")
-      
-      .then((res) => console.log(res.data.data))
+    await axios
+      .get(`${REACT_APP}/api/v1/products/product`)
+      .then((res) => 
+      {console.log(res.data.data)
+      dispatch(setProducts(res.data.data))})
       .catch((err) => {
         console.log("Err: ", err);
       });
-    dispatch(setProducts(response.data.data));
   };
-  // console.log(">>>>>>>>>>", products);
+  console.log(">>>>>>>>>>", products);
 
   useEffect(() => {
     fetchProducts();
-  }, []);
+  });
 
   const deleteopration = async (id) => {
-    await axios.delete(DELETE_DATA_API + id).catch((err) => {
+    await axios.delete(`${REACT_APP}/api/v1/products/product/` + id).catch((err) => {
       console.log("Err: ", err);
     });
     fetchProducts();

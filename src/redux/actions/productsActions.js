@@ -9,11 +9,10 @@ export const setProducts = (products) => {
 
 export const addProducts = (products) => {
   return {
-    type: ActionTypes.ADD_PRODUCTS,
+    type: ActionTypes.ADD_PRODUCT,
     payload: products,
   };
 };
-
 
 export const selectedProduct = (id) => {
   return {

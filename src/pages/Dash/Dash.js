@@ -19,9 +19,8 @@ export const Dash = () => {
     datasets: [
       {
         label: "My First dataset",
-        backgroundColor: "rgba(194, 116, 161, 0.5)",
-        borderColor: "rgb(194, 116, 161)",
-        data: [65, 59, 90, 81, 56, 55, 40],
+   
+        data: [1000, 5000, 3500, 10000, 6506, 7005, 5000],
       },
     ],
   });
@@ -36,10 +35,7 @@ export const Dash = () => {
             <h3 className="mt-5">Line chart Sells</h3>
             <Line data={data} options={{ responsive: true }} />
           </div>
-          <div className="chart">
-            <h3 className="mt-5">Line chart Sells</h3>
-            <Line data={data} options={{ responsive: true }} />
-          </div>
+         
         </div>
       </div>
     </div>

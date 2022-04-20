@@ -8,7 +8,7 @@ import * as Yup from "yup";
 import { Formik, Form, ErrorMessage, Field } from "formik";
 
 import { toast } from "react-toastify";
-import Loader from "react-js-loader";
+
 import { useState } from "react";
 
 const Login = () => {
@@ -17,10 +17,8 @@ const Login = () => {
     email: "",
     password: "",
   };
-  const [error, setError] = useState("");
-  const [load, setLoad] = useState({
-    label:"login"
-  })
+  const [error] = useState("");
+  
 
 
   const EmailRegex = /^[a-zA-Z0-9]+@+[a-zA-Z0-9]+.+[A-z]/;
@@ -40,12 +38,14 @@ const Login = () => {
 
   const handleSubmit = async (loginvalue) => {
     await axios
-      .post("https://purple-mole-82.loca.lt/auth/seller/login", loginvalue)
-      .then((response) => {
-        navigate("/product");
+      .post("https://modern-fox-4.loca.lt/api/login", loginvalue)
+      .then( async(response) => {
+       
         toast.success("Login SuccessFully")
         toast.error(response.message)
-        localStorage.setItem("Token", response.data.accToken);
+        await localStorage.setItem("Token", response.data.data);
+        // console.log(">>>>>>>>>>>>>",response.data.data);
+        navigate("/product");
       })
       .catch((error) => {
         toast.error("Plese Check Email or Password",error);

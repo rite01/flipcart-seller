@@ -15,10 +15,12 @@ export const productsReducer = (state = intialState, { type, payload }) => {
   }
 };
 
-export const addProductsReducer = (state = intialState, { type, payload }) => {
+export const addProductsReducer = (state = intialState, action, type) => {
   switch (type) {
     case ActionTypes.ADD_PRODUCT:
-      return { ...state, products: payload };
+      return { ...state,
+        products: state.products.concat(action.payload) 
+      };
     default:
       return state;
   }

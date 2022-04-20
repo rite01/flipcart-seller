@@ -6,7 +6,7 @@ import "./stylesmodule.css";
 const Main = () => {
   let navigate = useNavigate("");
   const handleLogout = () => {
-    localStorage.removeItem("token");
+    localStorage.removeItem("Token");
     navigate("/");
     toast.success("Logout Success")
   };

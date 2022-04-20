@@ -12,17 +12,6 @@ import "react-toastify/dist/ReactToastify.css";
 export function Addproduct() {
   let navigate = useNavigate();
   const [input, setinput] = useState({
-    // title: "",
-    // description: "",
-    // avater: "",
-    // price: "",
-    // stockQuantity: "",
-    // rating: "",
-    // category: "",
-    // owner: "",
-    // productBrand: "",
-    // productType: "",
-
     title: "",
     description: "",
     avatar: "",
@@ -65,18 +54,6 @@ export function Addproduct() {
       try {
       
         const req = {
-          // title: input.title,
-          // description: input.description,
-          // photo: URL.createObjectURL(input.photo),
-          // avater: input.avater,
-          // price: input.price,
-          // stockQuantity: input.stockQuantity,
-          // rating: input.rating,
-          // category_Id: input.category,
-          // owner: input.owner,
-          // productBrand: input.productBrand,
-          // productType: input.productType,
-
           title: input.title,
           description: input.description,
           avatar: JSON.stringify(input.avatar),
